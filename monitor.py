@@ -67,16 +67,18 @@ def get_last_365_days() -> list[str]:
     return [(today - timedelta(days=i)).isoformat() for i in range(364, -1, -1)]
 
 
-def quantize(values: list[float], levels: int = 5) -> list[int]:
-    """Assign each value to a level (0 = no data, 1-4 = quartiles)."""
+def quantize(values: list[float]) -> tuple[list[int], list[float]]:
+    """Assign each value to a level (0 = no data, 1-4 = quartiles).
+    Returns (levels, thresholds) where thresholds = [q25, q50, q75, max]."""
     nonzero = [v for v in values if v > 0]
     if not nonzero:
-        return [0] * len(values)
+        return [0] * len(values), [0, 0, 0, 0]
     sorted_nz = sorted(nonzero)
+    n = len(sorted_nz)
     thresholds = [
-        sorted_nz[int(len(sorted_nz) * p)] if int(len(sorted_nz) * p) < len(sorted_nz) else sorted_nz[-1]
+        sorted_nz[min(int(n * p), n - 1)]
         for p in [0.25, 0.5, 0.75]
-    ]
+    ] + [sorted_nz[-1]]
     result = []
     for v in values:
         if v <= 0:
@@ -89,7 +91,7 @@ def quantize(values: list[float], levels: int = 5) -> list[int]:
             result.append(3)
         else:
             result.append(4)
-    return result
+    return result, thresholds
 
 
 def format_cost(value: float) -> str:
@@ -111,7 +113,7 @@ def format_tokens(value: float) -> str:
 def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: bool) -> str:
     """Generate a GitHub-style contribution matrix SVG with interactive hover tooltip."""
     values = [data.get(d, {}).get(field, 0) for d in dates]
-    levels = quantize(values)
+    levels, thresholds = quantize(values)
 
     # Calculate grid
     first_date = datetime.fromisoformat(dates[0]).date()
@@ -129,7 +131,7 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
 
     num_weeks = len(weeks)
     width = MARGIN_LEFT + num_weeks * CELL_STEP + 10
-    legend_height = 40
+    legend_height = 60
     height = MARGIN_TOP + 7 * CELL_STEP + legend_height
 
     svg = ET.Element("svg", {
@@ -246,51 +248,199 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
             })
             tip_date.text = date_str
 
-    # Color bar legend
-    legend_y = MARGIN_TOP + 7 * CELL_STEP + 12
-    legend_x = width - 160
+    # Colorbar legend with value ranges
+    bar_w = 50  # width per color segment
+    bar_h = 12
+    total_bar_w = bar_w * 5
+    bar_x = MARGIN_LEFT
+    bar_y = MARGIN_TOP + 7 * CELL_STEP + 10
 
-    # Compute range label
+    # Threshold labels: 0, q25, q50, q75, max
     nonzero_vals = [v for v in values if v > 0]
     if nonzero_vals:
-        range_label = f"{fmt(min(nonzero_vals))} — {fmt(max(nonzero_vals))}"
+        bar_labels = ["0", fmt(thresholds[0]), fmt(thresholds[1]),
+                       fmt(thresholds[2]), fmt(thresholds[3])]
     else:
-        range_label = "No data"
+        bar_labels = ["0", "0", "0", "0", "0"]
 
-    # Range text on the left
-    range_text = ET.SubElement(svg, "text", {
-        "x": str(MARGIN_LEFT), "y": str(legend_y + 10),
-        "font-family": "Arial, sans-serif", "font-size": "10",
-        "fill": "#57606a",
-    })
-    range_text.text = f"Range: {range_label}"
-
-    # Less label
-    t = ET.SubElement(svg, "text", {
-        "x": str(legend_x), "y": str(legend_y + 10),
-        "font-family": "Arial, sans-serif", "font-size": "10",
-        "fill": "#57606a",
-    })
-    t.text = "Less"
-
-    # Color boxes
-    box_start = legend_x + 30
+    # Draw color segments
     for i, c in enumerate(COLORS_GREEN):
         ET.SubElement(svg, "rect", {
-            "x": str(box_start + i * (CELL_SIZE + 2)),
-            "y": str(legend_y),
-            "width": str(CELL_SIZE), "height": str(CELL_SIZE),
-            "rx": "2", "fill": c,
+            "x": str(bar_x + i * bar_w), "y": str(bar_y),
+            "width": str(bar_w), "height": str(bar_h),
+            "fill": c,
         })
 
-    # More label
-    t2 = ET.SubElement(svg, "text", {
-        "x": str(box_start + 5 * (CELL_SIZE + 2) + 4),
-        "y": str(legend_y + 10),
-        "font-family": "Arial, sans-serif", "font-size": "10",
+    # Border around the whole bar
+    ET.SubElement(svg, "rect", {
+        "x": str(bar_x), "y": str(bar_y),
+        "width": str(total_bar_w), "height": str(bar_h),
+        "fill": "none", "stroke": "#d0d7de", "stroke-width": "0.5", "rx": "2",
+    })
+
+    # Tick labels below bar (at segment boundaries)
+    for i, label in enumerate(bar_labels):
+        tx = bar_x + i * bar_w
+        t = ET.SubElement(svg, "text", {
+            "x": str(tx), "y": str(bar_y + bar_h + 12),
+            "font-family": "Arial, sans-serif", "font-size": "9",
+            "fill": "#57606a", "text-anchor": "middle",
+        })
+        t.text = label
+
+    # Colorbar title
+    bar_title = ET.SubElement(svg, "text", {
+        "x": str(bar_x), "y": str(bar_y - 4),
+        "font-family": "Arial, sans-serif", "font-size": "9",
         "fill": "#57606a",
     })
-    t2.text = "More"
+    bar_title.text = "Cost per day" if is_cost else "Tokens per day"
+
+    ET.indent(svg)
+    return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(svg, encoding="unicode")
+
+
+def generate_line_chart(data: dict, title: str) -> str:
+    """Generate a 14-day dual-axis line chart SVG (cost + tokens)."""
+    today = datetime.now().date()
+    dates = [(today - timedelta(days=i)).isoformat() for i in range(13, -1, -1)]
+    costs = [data.get(d, {}).get("totalCost", 0) for d in dates]
+    tokens = [data.get(d, {}).get("totalTokens", 0) for d in dates]
+
+    # Chart dimensions
+    chart_w, chart_h = 800, 200
+    margin = {"top": 35, "right": 80, "bottom": 40, "left": 70}
+    w = chart_w - margin["left"] - margin["right"]
+    h = chart_h - margin["top"] - margin["bottom"]
+
+    svg = ET.Element("svg", {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "width": str(chart_w), "height": str(chart_h),
+        "viewBox": f"0 0 {chart_w} {chart_h}",
+    })
+
+    ET.SubElement(svg, "rect", {
+        "width": str(chart_w), "height": str(chart_h),
+        "fill": "#ffffff", "rx": "6",
+    })
+
+    # Title
+    t = ET.SubElement(svg, "text", {
+        "x": str(margin["left"]), "y": "20",
+        "font-family": "Arial, sans-serif", "font-size": "14",
+        "fill": "#24292f", "font-weight": "bold",
+    })
+    t.text = title
+
+    # Scales
+    max_cost = max(costs) if max(costs) > 0 else 1
+    max_tokens = max(tokens) if max(tokens) > 0 else 1
+
+    def x_pos(i):
+        return margin["left"] + i * w / 13
+
+    def y_cost(v):
+        return margin["top"] + h - (v / max_cost) * h
+
+    def y_tokens(v):
+        return margin["top"] + h - (v / max_tokens) * h
+
+    # Grid lines
+    for i in range(5):
+        gy = margin["top"] + i * h / 4
+        ET.SubElement(svg, "line", {
+            "x1": str(margin["left"]), "y1": str(gy),
+            "x2": str(margin["left"] + w), "y2": str(gy),
+            "stroke": "#ebedf0", "stroke-width": "1",
+        })
+
+    # X-axis labels (dates)
+    for i, d in enumerate(dates):
+        if i % 2 == 0:  # every other day
+            label = d[5:]  # MM-DD
+            tx = ET.SubElement(svg, "text", {
+                "x": str(x_pos(i)), "y": str(margin["top"] + h + 18),
+                "font-family": "Arial, sans-serif", "font-size": "9",
+                "fill": "#57606a", "text-anchor": "middle",
+            })
+            tx.text = label
+
+    # Y-axis labels - cost (left)
+    for i in range(5):
+        val = max_cost * (4 - i) / 4
+        yl = ET.SubElement(svg, "text", {
+            "x": str(margin["left"] - 6),
+            "y": str(margin["top"] + i * h / 4 + 4),
+            "font-family": "Arial, sans-serif", "font-size": "9",
+            "fill": "#30a14e", "text-anchor": "end",
+        })
+        yl.text = format_cost(val)
+
+    # Y-axis labels - tokens (right)
+    for i in range(5):
+        val = max_tokens * (4 - i) / 4
+        yr = ET.SubElement(svg, "text", {
+            "x": str(margin["left"] + w + 6),
+            "y": str(margin["top"] + i * h / 4 + 4),
+            "font-family": "Arial, sans-serif", "font-size": "9",
+            "fill": "#0969da",
+        })
+        yr.text = format_tokens(val)
+
+    # Cost line (green)
+    cost_points = " ".join(f"{x_pos(i)},{y_cost(v)}" for i, v in enumerate(costs))
+    ET.SubElement(svg, "polyline", {
+        "points": cost_points,
+        "fill": "none", "stroke": "#30a14e", "stroke-width": "2",
+    })
+
+    # Cost dots
+    for i, v in enumerate(costs):
+        circle = ET.SubElement(svg, "circle", {
+            "cx": str(x_pos(i)), "cy": str(y_cost(v)), "r": "3",
+            "fill": "#30a14e",
+        })
+        tip = ET.SubElement(circle, "title")
+        tip.text = f"{dates[i]}: {format_cost(v)}"
+
+    # Tokens line (blue)
+    token_points = " ".join(f"{x_pos(i)},{y_tokens(v)}" for i, v in enumerate(tokens))
+    ET.SubElement(svg, "polyline", {
+        "points": token_points,
+        "fill": "none", "stroke": "#0969da", "stroke-width": "2",
+        "stroke-dasharray": "6,3",
+    })
+
+    # Token dots
+    for i, v in enumerate(tokens):
+        circle = ET.SubElement(svg, "circle", {
+            "cx": str(x_pos(i)), "cy": str(y_tokens(v)), "r": "3",
+            "fill": "#0969da",
+        })
+        tip = ET.SubElement(circle, "title")
+        tip.text = f"{dates[i]}: {format_tokens(v)}"
+
+    # Legend
+    lx = margin["left"] + w - 160
+    ly = margin["top"] - 12
+    ET.SubElement(svg, "line", {
+        "x1": str(lx), "y1": str(ly), "x2": str(lx + 20), "y2": str(ly),
+        "stroke": "#30a14e", "stroke-width": "2",
+    })
+    t1 = ET.SubElement(svg, "text", {
+        "x": str(lx + 24), "y": str(ly + 4),
+        "font-family": "Arial, sans-serif", "font-size": "10", "fill": "#30a14e",
+    })
+    t1.text = "Cost ($)"
+    ET.SubElement(svg, "line", {
+        "x1": str(lx + 80), "y1": str(ly), "x2": str(lx + 100), "y2": str(ly),
+        "stroke": "#0969da", "stroke-width": "2", "stroke-dasharray": "6,3",
+    })
+    t2 = ET.SubElement(svg, "text", {
+        "x": str(lx + 104), "y": str(ly + 4),
+        "font-family": "Arial, sans-serif", "font-size": "10", "fill": "#0969da",
+    })
+    t2.text = "Tokens"
 
     ET.indent(svg)
     return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(svg, encoding="unicode")
@@ -363,6 +513,10 @@ The script will:
 3. Generate contribution matrix SVGs
 4. Update this README
 
+## Last 14 Days
+
+![Last 14 Days](assets/recent.svg)
+
 ## Daily Cost
 
 ![Daily Cost](assets/cost.svg)
@@ -410,6 +564,10 @@ def main():
     print(f"Saved {len(merged)} days of usage data.")
 
     dates = get_last_365_days()
+
+    print("Generating 14-day line chart...")
+    recent_svg = generate_line_chart(merged, "Last 14 Days — Cost & Tokens")
+    (ASSETS_DIR / "recent.svg").write_text(recent_svg)
 
     print("Generating cost matrix...")
     cost_svg = generate_svg(dates, merged, "totalCost", "Daily Cost", is_cost=True)

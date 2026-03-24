@@ -18,6 +18,10 @@ The script will:
 3. Generate contribution matrix SVGs
 4. Update this README
 
+## Last 14 Days
+
+![Last 14 Days](assets/recent.svg)
+
 ## Daily Cost
 
 ![Daily Cost](assets/cost.svg)
@@ -35,8 +39,8 @@ The script will:
 | 2025-12 | $0.00 | 0 | 0 |
 | 2026-01 | $27.55 | 44.4M | 10 |
 | 2026-02 | $98.71 | 125.3M | 13 |
-| 2026-03 | $1,011 | 1.39B | 22 |
-| **Total** | **$1,137** | **1.56B** | **45** |
+| 2026-03 | $1,012 | 1.39B | 22 |
+| **Total** | **$1,138** | **1.56B** | **45** |
 
 ## Data
 

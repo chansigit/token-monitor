@@ -92,10 +92,15 @@ def quantize(values: list[float], levels: int = 5) -> list[int]:
     return result
 
 
-def format_value(value: float, is_cost: bool) -> str:
-    """Format a value for tooltip display."""
-    if is_cost:
-        return f"${value:.2f}"
+def format_cost(value: float) -> str:
+    if value >= 1000:
+        return f"${value:,.0f}"
+    return f"${value:.2f}"
+
+
+def format_tokens(value: float) -> str:
+    if value >= 1_000_000_000:
+        return f"{value / 1_000_000_000:.2f}B"
     if value >= 1_000_000:
         return f"{value / 1_000_000:.1f}M"
     if value >= 1_000:
@@ -104,16 +109,14 @@ def format_value(value: float, is_cost: bool) -> str:
 
 
 def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: bool) -> str:
-    """Generate a GitHub-style contribution matrix SVG."""
+    """Generate a GitHub-style contribution matrix SVG with interactive hover tooltip."""
     values = [data.get(d, {}).get(field, 0) for d in dates]
     levels = quantize(values)
 
-    # Calculate grid: 7 rows (Mon-Sun), ~53 columns
-    # First date's weekday determines starting row
+    # Calculate grid
     first_date = datetime.fromisoformat(dates[0]).date()
-    start_weekday = first_date.weekday()  # 0=Mon, 6=Sun
+    start_weekday = first_date.weekday()
 
-    # Build week columns
     weeks = []
     current_week = [None] * start_weekday
     for i, date_str in enumerate(dates):
@@ -126,7 +129,8 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
 
     num_weeks = len(weeks)
     width = MARGIN_LEFT + num_weeks * CELL_STEP + 10
-    height = MARGIN_TOP + 7 * CELL_STEP + 25
+    legend_height = 40
+    height = MARGIN_TOP + 7 * CELL_STEP + legend_height
 
     svg = ET.Element("svg", {
         "xmlns": "http://www.w3.org/2000/svg",
@@ -134,6 +138,14 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
         "height": str(height),
         "viewBox": f"0 0 {width} {height}",
     })
+
+    # Styles for hover interaction
+    style = ET.SubElement(svg, "style")
+    style.text = """
+        .cell:hover { stroke: #1b1f23; stroke-width: 1.5; }
+        .tooltip { pointer-events: none; opacity: 0; transition: opacity 0.15s; }
+        .cell:hover + .tooltip { opacity: 1; }
+    """
 
     # Background
     ET.SubElement(svg, "rect", {
@@ -167,9 +179,9 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
             if cell:
                 d = datetime.fromisoformat(cell[0]).date()
                 if d.day <= 7:
-                    month_positions.setdefault(d.month, wi)
+                    month_positions.setdefault((d.year, d.month), wi)
 
-    for month, wi in month_positions.items():
+    for (year, month), wi in month_positions.items():
         t = ET.SubElement(svg, "text", {
             "x": str(MARGIN_LEFT + wi * CELL_STEP),
             "y": str(MARGIN_TOP - 6),
@@ -178,47 +190,103 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
         })
         t.text = MONTH_LABELS[month - 1]
 
-    # Cells
+    # Cells with hover tooltips
+    fmt = format_cost if is_cost else format_tokens
+    unit = "" if is_cost else " tokens"
+
     for wi, week in enumerate(weeks):
         for di, cell in enumerate(week):
             x = MARGIN_LEFT + wi * CELL_STEP
             y = MARGIN_TOP + di * CELL_STEP
-            if cell is None:
-                color = COLOR_EMPTY
-                tooltip = "No data"
-            else:
-                date_str, val, level = cell
-                color = COLORS_GREEN[level]
-                formatted = format_value(val, is_cost)
-                tooltip = f"{date_str}: {formatted}"
 
-            rect = ET.SubElement(svg, "rect", {
+            if cell is None:
+                ET.SubElement(svg, "rect", {
+                    "x": str(x), "y": str(y),
+                    "width": str(CELL_SIZE), "height": str(CELL_SIZE),
+                    "rx": "2", "ry": "2", "fill": COLOR_EMPTY,
+                })
+                continue
+
+            date_str, val, level = cell
+            color = COLORS_GREEN[level]
+            formatted = fmt(val)
+
+            # Cell rect
+            ET.SubElement(svg, "rect", {
+                "class": "cell",
                 "x": str(x), "y": str(y),
                 "width": str(CELL_SIZE), "height": str(CELL_SIZE),
                 "rx": "2", "ry": "2", "fill": color,
             })
-            title_tip = ET.SubElement(rect, "title")
-            title_tip.text = tooltip
 
-    # Legend
-    legend_y = MARGIN_TOP + 7 * CELL_STEP + 8
-    legend_x = width - 130
+            # Tooltip group (positioned above the cell)
+            tooltip_w = 160
+            tooltip_h = 32
+            tx = max(4, min(x - tooltip_w // 2 + CELL_SIZE // 2, width - tooltip_w - 4))
+            ty = y - tooltip_h - 6
+            if ty < 2:
+                ty = y + CELL_SIZE + 6
+
+            g = ET.SubElement(svg, "g", {"class": "tooltip"})
+            ET.SubElement(g, "rect", {
+                "x": str(tx), "y": str(ty),
+                "width": str(tooltip_w), "height": str(tooltip_h),
+                "rx": "4", "fill": "#24292f",
+            })
+            tip_text = ET.SubElement(g, "text", {
+                "x": str(tx + tooltip_w // 2), "y": str(ty + 13),
+                "font-family": "Arial, sans-serif", "font-size": "11",
+                "fill": "#ffffff", "text-anchor": "middle", "font-weight": "bold",
+            })
+            tip_text.text = formatted + unit
+            tip_date = ET.SubElement(g, "text", {
+                "x": str(tx + tooltip_w // 2), "y": str(ty + 26),
+                "font-family": "Arial, sans-serif", "font-size": "10",
+                "fill": "#8b949e", "text-anchor": "middle",
+            })
+            tip_date.text = date_str
+
+    # Color bar legend
+    legend_y = MARGIN_TOP + 7 * CELL_STEP + 12
+    legend_x = width - 160
+
+    # Compute range label
+    nonzero_vals = [v for v in values if v > 0]
+    if nonzero_vals:
+        range_label = f"{fmt(min(nonzero_vals))} — {fmt(max(nonzero_vals))}"
+    else:
+        range_label = "No data"
+
+    # Range text on the left
+    range_text = ET.SubElement(svg, "text", {
+        "x": str(MARGIN_LEFT), "y": str(legend_y + 10),
+        "font-family": "Arial, sans-serif", "font-size": "10",
+        "fill": "#57606a",
+    })
+    range_text.text = f"Range: {range_label}"
+
+    # Less label
     t = ET.SubElement(svg, "text", {
-        "x": str(legend_x), "y": str(legend_y + 9),
+        "x": str(legend_x), "y": str(legend_y + 10),
         "font-family": "Arial, sans-serif", "font-size": "10",
         "fill": "#57606a",
     })
     t.text = "Less"
+
+    # Color boxes
+    box_start = legend_x + 30
     for i, c in enumerate(COLORS_GREEN):
         ET.SubElement(svg, "rect", {
-            "x": str(legend_x + 30 + i * (CELL_SIZE + 2)),
+            "x": str(box_start + i * (CELL_SIZE + 2)),
             "y": str(legend_y),
             "width": str(CELL_SIZE), "height": str(CELL_SIZE),
             "rx": "2", "fill": c,
         })
+
+    # More label
     t2 = ET.SubElement(svg, "text", {
-        "x": str(legend_x + 30 + 5 * (CELL_SIZE + 2) + 4),
-        "y": str(legend_y + 9),
+        "x": str(box_start + 5 * (CELL_SIZE + 2) + 4),
+        "y": str(legend_y + 10),
         "font-family": "Arial, sans-serif", "font-size": "10",
         "fill": "#57606a",
     })
@@ -228,8 +296,53 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
     return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(svg, encoding="unicode")
 
 
-def update_readme():
-    """Update README.md with current SVG images."""
+def generate_monthly_summary(data: dict) -> str:
+    """Generate a markdown table of the past 6 months usage."""
+    today = datetime.now().date()
+    months = []
+    for i in range(5, -1, -1):
+        # Go back i months
+        y = today.year
+        m = today.month - i
+        while m <= 0:
+            m += 12
+            y -= 1
+        months.append((y, m))
+
+    rows = []
+    for y, m in months:
+        month_label = f"{y}-{m:02d}"
+        total_cost = 0.0
+        total_tokens = 0
+        days_active = 0
+        for date_str, entry in data.items():
+            d = datetime.fromisoformat(date_str).date()
+            if d.year == y and d.month == m:
+                total_cost += entry.get("totalCost", 0)
+                total_tokens += entry.get("totalTokens", 0)
+                if entry.get("totalCost", 0) > 0 or entry.get("totalTokens", 0) > 0:
+                    days_active += 1
+        rows.append((month_label, total_cost, total_tokens, days_active))
+
+    lines = []
+    lines.append("| Month | Cost | Tokens | Active Days |")
+    lines.append("|-------|------|--------|-------------|")
+    for month_label, cost, tokens, days in rows:
+        lines.append(f"| {month_label} | {format_cost(cost)} | {format_tokens(tokens)} | {days} |")
+
+    # Totals
+    total_c = sum(r[1] for r in rows)
+    total_t = sum(r[2] for r in rows)
+    total_d = sum(r[3] for r in rows)
+    lines.append(f"| **Total** | **{format_cost(total_c)}** | **{format_tokens(total_t)}** | **{total_d}** |")
+
+    return "\n".join(lines)
+
+
+def update_readme(data: dict):
+    """Update README.md with current SVG images and monthly summary."""
+    monthly_table = generate_monthly_summary(data)
+
     content = f"""# Token Monitor
 
 Track Claude Code daily token usage with GitHub-style contribution matrix.
@@ -257,6 +370,10 @@ The script will:
 ## Daily Tokens
 
 ![Daily Tokens](assets/tokens.svg)
+
+## Past 6 Months
+
+{monthly_table}
 
 ## Data
 
@@ -302,7 +419,7 @@ def main():
     tokens_svg = generate_svg(dates, merged, "totalTokens", "Daily Tokens", is_cost=False)
     (ASSETS_DIR / "tokens.svg").write_text(tokens_svg)
 
-    update_readme()
+    update_readme(merged)
     print("Done! README.md and SVGs updated.")
 
 

@@ -26,6 +26,18 @@ The script will:
 
 ![Daily Tokens](assets/tokens.svg)
 
+## Past 6 Months
+
+| Month | Cost | Tokens | Active Days |
+|-------|------|--------|-------------|
+| 2025-10 | $0.00 | 0 | 0 |
+| 2025-11 | $0.00 | 0 | 0 |
+| 2025-12 | $0.00 | 0 | 0 |
+| 2026-01 | $27.55 | 44.4M | 10 |
+| 2026-02 | $98.71 | 125.3M | 13 |
+| 2026-03 | $1,011 | 1.39B | 22 |
+| **Total** | **$1,137** | **1.56B** | **45** |
+
 ## Data
 
 Raw usage data is stored in [`data/usage.json`](data/usage.json).

@@ -28,10 +28,10 @@
     "cacheCreationTokens": 138930,
     "cacheReadTokens": 500959,
     "totalTokens": 661253,
-    "totalCost": 0.4846503000000001,
+    "totalCost": 0.48465029999999987,
     "modelsUsed": [
-      "claude-opus-4-5-20251101",
       "claude-haiku-4-5-20251001",
+      "claude-opus-4-5-20251101",
       "claude-sonnet-4-5-20250929"
     ],
     "modelBreakdowns": [
@@ -41,7 +41,7 @@
         "outputTokens": 254,
         "cacheCreationTokens": 23792,
         "cacheReadTokens": 67356,
-        "cost": 0.24810300000000002
+        "cost": 0.24810300000000005
       },
       {
         "modelName": "claude-haiku-4-5-20251001",
@@ -49,7 +49,7 @@
         "outputTokens": 36,
         "cacheCreationTokens": 100413,
         "cacheReadTokens": 418878,
-        "cost": 0.17676705
+        "cost": 0.17676704999999998
       },
       {
         "modelName": "claude-sonnet-4-5-20250929",
@@ -68,7 +68,7 @@
     "cacheCreationTokens": 191347,
     "cacheReadTokens": 14631498,
     "totalTokens": 14870681,
-    "totalCost": 8.797365350000002,
+    "totalCost": 8.797365350000003,
     "modelsUsed": [
       "claude-opus-4-5-20251101",
       "claude-haiku-4-5-20251001"
@@ -142,7 +142,7 @@
         "outputTokens": 93,
         "cacheCreationTokens": 35439,
         "cacheReadTokens": 53419,
-        "cost": 0.34593825
+        "cost": 0.34593825000000006
       },
       {
         "modelName": "claude-haiku-4-5-20251001",
@@ -150,7 +150,7 @@
         "outputTokens": 15,
         "cacheCreationTokens": 52761,
         "cacheReadTokens": 117522,
-        "cost": 0.07855544999999999
+        "cost": 0.07855545
       }
     ]
   },
@@ -194,8 +194,8 @@
     "totalTokens": 269916,
     "totalCost": 0.70106095,
     "modelsUsed": [
-      "claude-opus-4-5-20251101",
-      "claude-haiku-4-5-20251001"
+      "claude-haiku-4-5-20251001",
+      "claude-opus-4-5-20251101"
     ],
     "modelBreakdowns": [
       {
@@ -461,7 +461,7 @@
         "outputTokens": 6076,
         "cacheCreationTokens": 78321,
         "cacheReadTokens": 412939,
-        "cost": 0.9231357499999997
+        "cost": 0.9231357499999998
       },
       {
         "modelName": "claude-haiku-4-5-20251001",
@@ -928,7 +928,7 @@
     "cacheCreationTokens": 2942626,
     "cacheReadTokens": 72109805,
     "totalTokens": 75242032,
-    "totalCost": 46.057749299999976,
+    "totalCost": 46.05774929999997,
     "modelsUsed": [
       "claude-opus-4-6",
       "claude-haiku-4-5-20251001",
@@ -1101,7 +1101,7 @@
     "cacheCreationTokens": 2126533,
     "cacheReadTokens": 53765807,
     "totalTokens": 56034341,
-    "totalCost": 39.097870749999984,
+    "totalCost": 39.09787074999998,
     "modelsUsed": [
       "claude-opus-4-6",
       "claude-sonnet-4-5-20250929",
@@ -1114,7 +1114,7 @@
         "outputTokens": 98520,
         "cacheCreationTokens": 1638842,
         "cacheReadTokens": 49993824,
-        "cost": 37.7427895
+        "cost": 37.742789499999986
       },
       {
         "modelName": "claude-haiku-4-5-20251001",
@@ -1428,12 +1428,12 @@
   },
   "2026-03-24": {
     "date": "2026-03-24",
-    "inputTokens": 16389,
-    "outputTokens": 188014,
-    "cacheCreationTokens": 2194226,
-    "cacheReadTokens": 79676507,
-    "totalTokens": 82075136,
-    "totalCost": 63.92946790000005,
+    "inputTokens": 16457,
+    "outputTokens": 188938,
+    "cacheCreationTokens": 2219137,
+    "cacheReadTokens": 80962693,
+    "totalTokens": 83387225,
+    "totalCost": 64.75169465000003,
     "modelsUsed": [
       "claude-opus-4-6",
       "claude-sonnet-4-6",
@@ -1442,11 +1442,11 @@
     "modelBreakdowns": [
       {
         "modelName": "claude-opus-4-6",
-        "inputTokens": 1010,
-        "outputTokens": 173373,
-        "cacheCreationTokens": 1918680,
-        "cacheReadTokens": 77597660,
-        "cost": 62.24678100000003
+        "inputTokens": 1078,
+        "outputTokens": 174297,
+        "cacheCreationTokens": 1943591,
+        "cacheReadTokens": 78883846,
+        "cost": 63.06900775000001
       },
       {
         "modelName": "claude-sonnet-4-6",

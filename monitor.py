@@ -141,14 +141,6 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
         "viewBox": f"0 0 {width} {height}",
     })
 
-    # Styles for hover interaction
-    style = ET.SubElement(svg, "style")
-    style.text = """
-        .cell:hover { stroke: #1b1f23; stroke-width: 1.5; }
-        .tooltip { pointer-events: none; opacity: 0; transition: opacity 0.15s; }
-        .cell:hover + .tooltip { opacity: 1; }
-    """
-
     # Background
     ET.SubElement(svg, "rect", {
         "width": str(width), "height": str(height),
@@ -213,40 +205,14 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
             color = COLORS_GREEN[level]
             formatted = fmt(val)
 
-            # Cell rect
-            ET.SubElement(svg, "rect", {
-                "class": "cell",
+            # Cell rect with native tooltip (works on GitHub)
+            cell_rect = ET.SubElement(svg, "rect", {
                 "x": str(x), "y": str(y),
                 "width": str(CELL_SIZE), "height": str(CELL_SIZE),
                 "rx": "2", "ry": "2", "fill": color,
             })
-
-            # Tooltip group (positioned above the cell)
-            tooltip_w = 160
-            tooltip_h = 32
-            tx = max(4, min(x - tooltip_w // 2 + CELL_SIZE // 2, width - tooltip_w - 4))
-            ty = y - tooltip_h - 6
-            if ty < 2:
-                ty = y + CELL_SIZE + 6
-
-            g = ET.SubElement(svg, "g", {"class": "tooltip"})
-            ET.SubElement(g, "rect", {
-                "x": str(tx), "y": str(ty),
-                "width": str(tooltip_w), "height": str(tooltip_h),
-                "rx": "4", "fill": "#24292f",
-            })
-            tip_text = ET.SubElement(g, "text", {
-                "x": str(tx + tooltip_w // 2), "y": str(ty + 13),
-                "font-family": "Arial, sans-serif", "font-size": "11",
-                "fill": "#ffffff", "text-anchor": "middle", "font-weight": "bold",
-            })
-            tip_text.text = formatted + unit
-            tip_date = ET.SubElement(g, "text", {
-                "x": str(tx + tooltip_w // 2), "y": str(ty + 26),
-                "font-family": "Arial, sans-serif", "font-size": "10",
-                "fill": "#8b949e", "text-anchor": "middle",
-            })
-            tip_date.text = date_str
+            tip = ET.SubElement(cell_rect, "title")
+            tip.text = f"{formatted}{unit} on {date_str}"
 
     # Colorbar legend with value ranges
     bar_w = 50  # width per color segment
@@ -254,14 +220,6 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
     total_bar_w = bar_w * 5
     bar_x = MARGIN_LEFT
     bar_y = MARGIN_TOP + 7 * CELL_STEP + 10
-
-    # Threshold labels: 0, q25, q50, q75, max
-    nonzero_vals = [v for v in values if v > 0]
-    if nonzero_vals:
-        bar_labels = ["0", fmt(thresholds[0]), fmt(thresholds[1]),
-                       fmt(thresholds[2]), fmt(thresholds[3])]
-    else:
-        bar_labels = ["0", "0", "0", "0", "0"]
 
     # Draw color segments
     for i, c in enumerate(COLORS_GREEN):
@@ -278,9 +236,16 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
         "fill": "none", "stroke": "#d0d7de", "stroke-width": "0.5", "rx": "2",
     })
 
-    # Tick labels below bar (at segment boundaries)
+    # Tick labels below bar (centered under each segment)
+    nonzero_vals = [v for v in values if v > 0]
+    if nonzero_vals:
+        bar_labels = ["0", fmt(thresholds[0]), fmt(thresholds[1]),
+                       fmt(thresholds[2]), fmt(thresholds[3])]
+    else:
+        bar_labels = ["0", "0", "0", "0", "0"]
+
     for i, label in enumerate(bar_labels):
-        tx = bar_x + i * bar_w
+        tx = bar_x + i * bar_w + bar_w // 2
         t = ET.SubElement(svg, "text", {
             "x": str(tx), "y": str(bar_y + bar_h + 12),
             "font-family": "Arial, sans-serif", "font-size": "9",
@@ -333,8 +298,8 @@ def generate_line_chart(data: dict, title: str) -> str:
     t.text = title
 
     # Scales
-    max_cost = max(costs) if max(costs) > 0 else 1
-    max_tokens = max(tokens) if max(tokens) > 0 else 1
+    max_cost = max(costs) or 1
+    max_tokens = max(tokens) or 1
 
     def x_pos(i):
         return margin["left"] + i * w / 13

@@ -20,9 +20,7 @@
   <text x="808" y="24" font-family="Arial, sans-serif" font-size="10" fill="#57606a">Mar</text>
   <rect x="40" y="30" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="46" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
-  <rect x="40" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
-    <title>0 tokens on 2025-03-26</title>
-  </rect>
+  <rect x="40" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
     <title>0 tokens on 2025-03-27</title>
   </rect>
@@ -1049,7 +1047,7 @@
   <rect x="824" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>18.4M tokens on 2026-03-03</title>
   </rect>
-  <rect x="824" y="62" width="13" height="13" rx="2" ry="2" fill="#40c463">
+  <rect x="824" y="62" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>14.7M tokens on 2026-03-04</title>
   </rect>
   <rect x="824" y="78" width="13" height="13" rx="2" ry="2" fill="#216e39">
@@ -1113,9 +1111,11 @@
     <title>88.3M tokens on 2026-03-24</title>
   </rect>
   <rect x="872" y="62" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>152.2M tokens on 2026-03-25</title>
+    <title>169.4M tokens on 2026-03-25</title>
   </rect>
-  <rect x="872" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
+  <rect x="872" y="78" width="13" height="13" rx="2" ry="2" fill="#40c463">
+    <title>3.7M tokens on 2026-03-26</title>
+  </rect>
   <rect x="872" y="94" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
@@ -1127,7 +1127,7 @@
   <rect x="40" y="152" width="250" height="12" fill="none" stroke="#d0d7de" stroke-width="0.5" rx="2" />
   <text x="65" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">0</text>
   <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">661.3K</text>
-  <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">14.7M</text>
+  <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">11.0M</text>
   <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">48.4M</text>
   <text x="265" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">607.4M</text>
   <text x="40" y="148" font-family="Arial, sans-serif" font-size="9" fill="#57606a">Tokens per day</text>

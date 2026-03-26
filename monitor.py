@@ -29,14 +29,22 @@ DAY_LABELS = ["Mon", "", "Wed", "", "Fri", "", "Sun"]
 
 def fetch_usage() -> list[dict]:
     """Fetch all daily usage data from ccusage."""
-    result = subprocess.run(
-        ["ccusage", "daily", "--json"],
-        capture_output=True, text=True
-    )
+    try:
+        result = subprocess.run(
+            ["ccusage", "daily", "--json"],
+            capture_output=True, text=True
+        )
+    except FileNotFoundError:
+        print("Error: ccusage is not installed. Install it with: npm install -g ccusage", file=sys.stderr)
+        sys.exit(1)
     if result.returncode != 0:
         print(f"Error running ccusage: {result.stderr}", file=sys.stderr)
         sys.exit(1)
-    data = json.loads(result.stdout)
+    try:
+        data = json.loads(result.stdout)
+    except json.JSONDecodeError:
+        print(f"Error: ccusage returned invalid JSON: {result.stdout[:200]}", file=sys.stderr)
+        sys.exit(1)
     return data.get("daily", data) if isinstance(data, dict) else data
 
 
@@ -61,9 +69,10 @@ def merge_data(existing: dict, new_entries: list[dict]) -> dict:
     return existing
 
 
-def get_last_365_days() -> list[str]:
+def get_last_365_days(today=None) -> list[str]:
     """Return list of date strings for the last 365 days."""
-    today = datetime.now().date()
+    if today is None:
+        today = datetime.now().date()
     return [(today - timedelta(days=i)).isoformat() for i in range(364, -1, -1)]
 
 
@@ -75,6 +84,10 @@ def quantize(values: list[float]) -> tuple[list[int], list[float]]:
         return [0] * len(values), [0, 0, 0, 0]
     sorted_nz = sorted(nonzero)
     n = len(sorted_nz)
+    # When all nonzero values are the same, map them all to level 2 (mid-green)
+    if sorted_nz[0] == sorted_nz[-1]:
+        single = sorted_nz[0]
+        return [0 if v <= 0 else 2 for v in values], [single, single, single, single]
     thresholds = [
         sorted_nz[min(int(n * p), n - 1)]
         for p in [0.25, 0.5, 0.75]
@@ -265,9 +278,10 @@ def generate_svg(dates: list[str], data: dict, field: str, title: str, is_cost: 
     return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(svg, encoding="unicode")
 
 
-def generate_line_chart(data: dict, title: str) -> str:
+def generate_line_chart(data: dict, title: str, today=None) -> str:
     """Generate a 14-day dual-axis line chart SVG (cost + tokens)."""
-    today = datetime.now().date()
+    if today is None:
+        today = datetime.now().date()
     dates = [(today - timedelta(days=i)).isoformat() for i in range(13, -1, -1)]
     costs = [data.get(d, {}).get("totalCost", 0) for d in dates]
     tokens = [data.get(d, {}).get("totalTokens", 0) for d in dates]
@@ -411,9 +425,10 @@ def generate_line_chart(data: dict, title: str) -> str:
     return '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(svg, encoding="unicode")
 
 
-def generate_monthly_summary(data: dict) -> str:
+def generate_monthly_summary(data: dict, today=None) -> str:
     """Generate a markdown table of the past 6 months usage."""
-    today = datetime.now().date()
+    if today is None:
+        today = datetime.now().date()
     months = []
     for i in range(5, -1, -1):
         # Go back i months
@@ -454,29 +469,17 @@ def generate_monthly_summary(data: dict) -> str:
     return "\n".join(lines)
 
 
-def update_readme(data: dict):
+def update_readme(data: dict, today=None):
     """Update README.md with current SVG images and monthly summary."""
-    monthly_table = generate_monthly_summary(data)
+    monthly_table = generate_monthly_summary(data, today)
 
-    content = f"""# Token Monitor
+    content = f"""<p align="center">
+  <img src="assets/logo.svg" width="120" alt="Token Monitor">
+</p>
 
-Track Claude Code daily token usage with GitHub-style contribution matrix.
+<h1 align="center">Token Monitor</h1>
 
-## Usage
-
-```bash
-# Update usage data and visualizations
-python monitor.py
-
-# Or run directly
-./monitor.py
-```
-
-The script will:
-1. Fetch latest usage data from `ccusage`
-2. Save to `data/usage.json`
-3. Generate contribution matrix SVGs
-4. Update this README
+<p align="center">Track Claude Code daily token usage with GitHub-style contribution matrix.</p>
 
 ## Last 14 Days
 
@@ -494,27 +497,40 @@ The script will:
 
 {monthly_table}
 
-## Data
-
-Raw usage data is stored in [`data/usage.json`](data/usage.json).
-
 ## Setup
 
-Requires [ccusage](https://github.com/anthropics/ccusage) to be installed and configured.
+Requires [ccusage](https://github.com/ryoppippi/ccusage) to be installed.
 
 ```bash
-# Install ccusage if not already installed
 npm install -g ccusage
-
-# Run the monitor
-python monitor.py
 ```
 
-Commit and push to GitHub to update your contribution wall:
+## Usage
 
 ```bash
-git add -A && git commit -m "update usage $(date +%Y-%m-%d)" && git push
+# One-shot: fetch data, generate charts, update README
+python monitor.py
+
+# Then commit and push
+git add data/ assets/ README.md && git commit -m "update usage $(date +%Y-%m-%d)" && git push
 ```
+
+## Auto Update (every 10 min)
+
+```bash
+# Start background loop
+nohup ./auto-loop.sh &
+
+# Check logs
+tail -f auto-update.log
+
+# Stop
+kill $(cat .loop.pid)
+```
+
+## Data
+
+Raw usage data: [`data/usage.json`](data/usage.json)
 """
     README_FILE.write_text(content)
 
@@ -528,10 +544,12 @@ def main():
     save_data(merged)
     print(f"Saved {len(merged)} days of usage data.")
 
-    dates = get_last_365_days()
+    today = datetime.now().date()
+    dates = get_last_365_days(today)
+    ASSETS_DIR.mkdir(parents=True, exist_ok=True)
 
     print("Generating 14-day line chart...")
-    recent_svg = generate_line_chart(merged, "Last 14 Days — Cost & Tokens")
+    recent_svg = generate_line_chart(merged, "Last 14 Days — Cost & Tokens", today)
     (ASSETS_DIR / "recent.svg").write_text(recent_svg)
 
     print("Generating cost matrix...")
@@ -542,7 +560,7 @@ def main():
     tokens_svg = generate_svg(dates, merged, "totalTokens", "Daily Tokens", is_cost=False)
     (ASSETS_DIR / "tokens.svg").write_text(tokens_svg)
 
-    update_readme(merged)
+    update_readme(merged, today)
     print("Done! README.md and SVGs updated.")
 
 

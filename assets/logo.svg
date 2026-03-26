@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#216e39"/>
+      <stop offset="100%" stop-color="#30a14e"/>
+    </linearGradient>
+    <linearGradient id="bar1" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#9be9a8"/>
+      <stop offset="100%" stop-color="#40c463"/>
+    </linearGradient>
+    <linearGradient id="bar2" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#40c463"/>
+      <stop offset="100%" stop-color="#30a14e"/>
+    </linearGradient>
+    <linearGradient id="bar3" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#30a14e"/>
+      <stop offset="100%" stop-color="#216e39"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="120" height="120" rx="24" fill="url(#bg)"/>
+  <!-- Bar chart representing token usage -->
+  <rect x="22" y="68" width="14" height="24" rx="3" fill="url(#bar1)" opacity="0.9"/>
+  <rect x="42" y="48" width="14" height="44" rx="3" fill="url(#bar2)" opacity="0.9"/>
+  <rect x="62" y="34" width="14" height="58" rx="3" fill="url(#bar3)" opacity="0.9"/>
+  <rect x="82" y="24" width="14" height="68" rx="3" fill="#ffffff" opacity="0.9"/>
+  <!-- Trend line -->
+  <polyline points="29,62 49,42 69,28 89,18" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+  <!-- Dots on trend line -->
+  <circle cx="29" cy="62" r="3" fill="#ffffff" opacity="0.8"/>
+  <circle cx="49" cy="42" r="3" fill="#ffffff" opacity="0.8"/>
+  <circle cx="69" cy="28" r="3" fill="#ffffff" opacity="0.8"/>
+  <circle cx="89" cy="18" r="3" fill="#ffffff" opacity="0.9"/>
+  <!-- "TM" text at bottom -->
+  <text x="60" y="110" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="bold" fill="#ffffff" text-anchor="middle" opacity="0.85">TOKEN</text>
+</svg>

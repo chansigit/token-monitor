@@ -1,22 +1,10 @@
-# Token Monitor
+<p align="center">
+  <img src="assets/logo.svg" width="120" alt="Token Monitor">
+</p>
 
-Track Claude Code daily token usage with GitHub-style contribution matrix.
+<h1 align="center">Token Monitor</h1>
 
-## Usage
-
-```bash
-# Update usage data and visualizations
-python monitor.py
-
-# Or run directly
-./monitor.py
-```
-
-The script will:
-1. Fetch latest usage data from `ccusage`
-2. Save to `data/usage.json`
-3. Generate contribution matrix SVGs
-4. Update this README
+<p align="center">Track Claude Code daily token usage with GitHub-style contribution matrix.</p>
 
 ## Last 14 Days
 
@@ -38,28 +26,41 @@ The script will:
 | 2025-11 | $0.00 | 0 | 0 |
 | 2025-12 | $0.00 | 0 | 0 |
 | 2026-01 | $27.55 | 44.4M | 10 |
-| 2026-02 | $98.36 | 125.0M | 13 |
-| 2026-03 | $1,241 | 1.67B | 24 |
-| **Total** | **$1,367** | **1.84B** | **47** |
-
-## Data
-
-Raw usage data is stored in [`data/usage.json`](data/usage.json).
+| 2026-02 | $98.12 | 124.7M | 13 |
+| 2026-03 | $1,256 | 1.69B | 24 |
+| **Total** | **$1,382** | **1.85B** | **47** |
 
 ## Setup
 
-Requires [ccusage](https://github.com/anthropics/ccusage) to be installed and configured.
+Requires [ccusage](https://github.com/ryoppippi/ccusage) to be installed.
 
 ```bash
-# Install ccusage if not already installed
 npm install -g ccusage
-
-# Run the monitor
-python monitor.py
 ```
 
-Commit and push to GitHub to update your contribution wall:
+## Usage
 
 ```bash
-git add -A && git commit -m "update usage $(date +%Y-%m-%d)" && git push
+# One-shot: fetch data, generate charts, update README
+python monitor.py
+
+# Then commit and push
+git add data/ assets/ README.md && git commit -m "update usage $(date +%Y-%m-%d)" && git push
 ```
+
+## Auto Update (every 10 min)
+
+```bash
+# Start background loop
+nohup ./auto-loop.sh &
+
+# Check logs
+tail -f auto-update.log
+
+# Stop
+kill $(cat .loop.pid)
+```
+
+## Data
+
+Raw usage data: [`data/usage.json`](data/usage.json)

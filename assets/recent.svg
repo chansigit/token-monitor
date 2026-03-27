@@ -7,13 +7,13 @@
   <line x1="70" y1="97.5" x2="720" y2="97.5" stroke="#ebedf0" stroke-width="1" />
   <line x1="70" y1="128.75" x2="720" y2="128.75" stroke="#ebedf0" stroke-width="1" />
   <line x1="70" y1="160.0" x2="720" y2="160.0" stroke="#ebedf0" stroke-width="1" />
-  <text x="70.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-13</text>
-  <text x="170.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-15</text>
-  <text x="270.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-17</text>
-  <text x="370.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-19</text>
-  <text x="470.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-21</text>
-  <text x="570.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-23</text>
-  <text x="670.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-25</text>
+  <text x="70.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-14</text>
+  <text x="170.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-16</text>
+  <text x="270.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-18</text>
+  <text x="370.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-20</text>
+  <text x="470.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-22</text>
+  <text x="570.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-24</text>
+  <text x="670.0" y="178" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">03-26</text>
   <text x="64" y="39.0" font-family="Arial, sans-serif" font-size="9" fill="#30a14e" text-anchor="end">$459.24</text>
   <text x="64" y="70.25" font-family="Arial, sans-serif" font-size="9" fill="#30a14e" text-anchor="end">$344.43</text>
   <text x="64" y="101.5" font-family="Arial, sans-serif" font-size="9" fill="#30a14e" text-anchor="end">$229.62</text>
@@ -24,91 +24,91 @@
   <text x="726" y="101.5" font-family="Arial, sans-serif" font-size="9" fill="#0969da">303.7M</text>
   <text x="726" y="132.75" font-family="Arial, sans-serif" font-size="9" fill="#0969da">151.8M</text>
   <text x="726" y="164.0" font-family="Arial, sans-serif" font-size="9" fill="#0969da">0</text>
-  <polyline points="70.0,155.03303103545028 120.0,158.44250326278907 170.0,160.0 220.0,156.23521477630842 270.0,146.7847457175767 320.0,156.04673866936147 370.0,132.94452656061077 420.0,156.2879408983773 470.0,160.0 520.0,159.12341300027927 570.0,35.0 620.0,141.22319230946863 670.0,124.46425956111435 720.0,132.43628329306375" fill="none" stroke="#30a14e" stroke-width="2" />
-  <circle cx="70.0" cy="155.03303103545028" r="3" fill="#30a14e">
-    <title>2026-03-13: $18.25</title>
-  </circle>
-  <circle cx="120.0" cy="158.44250326278907" r="3" fill="#30a14e">
+  <polyline points="70.0,158.44250326278907 120.0,160.0 170.0,156.23521477630842 220.0,146.7847457175767 270.0,156.04673866936147 320.0,132.94452656061077 370.0,156.2879408983773 420.0,160.0 470.0,159.12341300027927 520.0,35.0 570.0,141.22319230946863 620.0,124.46425956111435 670.0,132.43628329306375 720.0,160.0" fill="none" stroke="#30a14e" stroke-width="2" />
+  <circle cx="70.0" cy="158.44250326278907" r="3" fill="#30a14e">
     <title>2026-03-14: $5.72</title>
   </circle>
-  <circle cx="170.0" cy="160.0" r="3" fill="#30a14e">
+  <circle cx="120.0" cy="160.0" r="3" fill="#30a14e">
     <title>2026-03-15: $0.00</title>
   </circle>
-  <circle cx="220.0" cy="156.23521477630842" r="3" fill="#30a14e">
+  <circle cx="170.0" cy="156.23521477630842" r="3" fill="#30a14e">
     <title>2026-03-16: $13.83</title>
   </circle>
-  <circle cx="270.0" cy="146.7847457175767" r="3" fill="#30a14e">
+  <circle cx="220.0" cy="146.7847457175767" r="3" fill="#30a14e">
     <title>2026-03-17: $48.55</title>
   </circle>
-  <circle cx="320.0" cy="156.04673866936147" r="3" fill="#30a14e">
+  <circle cx="270.0" cy="156.04673866936147" r="3" fill="#30a14e">
     <title>2026-03-18: $14.52</title>
   </circle>
-  <circle cx="370.0" cy="132.94452656061077" r="3" fill="#30a14e">
+  <circle cx="320.0" cy="132.94452656061077" r="3" fill="#30a14e">
     <title>2026-03-19: $99.40</title>
   </circle>
-  <circle cx="420.0" cy="156.2879408983773" r="3" fill="#30a14e">
+  <circle cx="370.0" cy="156.2879408983773" r="3" fill="#30a14e">
     <title>2026-03-20: $13.64</title>
   </circle>
-  <circle cx="470.0" cy="160.0" r="3" fill="#30a14e">
+  <circle cx="420.0" cy="160.0" r="3" fill="#30a14e">
     <title>2026-03-21: $0.00</title>
   </circle>
-  <circle cx="520.0" cy="159.12341300027927" r="3" fill="#30a14e">
+  <circle cx="470.0" cy="159.12341300027927" r="3" fill="#30a14e">
     <title>2026-03-22: $3.22</title>
   </circle>
-  <circle cx="570.0" cy="35.0" r="3" fill="#30a14e">
+  <circle cx="520.0" cy="35.0" r="3" fill="#30a14e">
     <title>2026-03-23: $459.24</title>
   </circle>
-  <circle cx="620.0" cy="141.22319230946863" r="3" fill="#30a14e">
+  <circle cx="570.0" cy="141.22319230946863" r="3" fill="#30a14e">
     <title>2026-03-24: $68.99</title>
   </circle>
-  <circle cx="670.0" cy="124.46425956111435" r="3" fill="#30a14e">
+  <circle cx="620.0" cy="124.46425956111435" r="3" fill="#30a14e">
     <title>2026-03-25: $130.56</title>
   </circle>
-  <circle cx="720.0" cy="132.43628329306375" r="3" fill="#30a14e">
+  <circle cx="670.0" cy="132.43628329306375" r="3" fill="#30a14e">
     <title>2026-03-26: $101.27</title>
   </circle>
-  <polyline points="70.0,154.6325971877695 120.0,158.34786755775718 170.0,160.0 220.0,155.99883408513165 270.0,147.16945947307752 320.0,156.62967862277833 370.0,129.85927632561726 420.0,155.6620102050015 470.0,160.0 520.0,159.10506079721367 570.0,35.0 620.0,141.82015113582955 670.0,125.1283390919998 720.0,140.63750609684956" fill="none" stroke="#0969da" stroke-width="2" stroke-dasharray="6,3" />
-  <circle cx="70.0" cy="154.6325971877695" r="3" fill="#0969da">
-    <title>2026-03-13: 26.1M</title>
+  <circle cx="720.0" cy="160.0" r="3" fill="#30a14e">
+    <title>2026-03-27: $0.00</title>
   </circle>
-  <circle cx="120.0" cy="158.34786755775718" r="3" fill="#0969da">
+  <polyline points="70.0,158.34786755775718 120.0,160.0 170.0,155.99883408513165 220.0,147.16945947307752 270.0,156.62967862277833 320.0,129.85927632561726 370.0,155.6620102050015 420.0,160.0 470.0,159.10506079721367 520.0,35.0 570.0,141.82015113582955 620.0,125.1283390919998 670.0,140.63750609684956 720.0,160.0" fill="none" stroke="#0969da" stroke-width="2" stroke-dasharray="6,3" />
+  <circle cx="70.0" cy="158.34786755775718" r="3" fill="#0969da">
     <title>2026-03-14: 8.0M</title>
   </circle>
-  <circle cx="170.0" cy="160.0" r="3" fill="#0969da">
+  <circle cx="120.0" cy="160.0" r="3" fill="#0969da">
     <title>2026-03-15: 0</title>
   </circle>
-  <circle cx="220.0" cy="155.99883408513165" r="3" fill="#0969da">
+  <circle cx="170.0" cy="155.99883408513165" r="3" fill="#0969da">
     <title>2026-03-16: 19.4M</title>
   </circle>
-  <circle cx="270.0" cy="147.16945947307752" r="3" fill="#0969da">
+  <circle cx="220.0" cy="147.16945947307752" r="3" fill="#0969da">
     <title>2026-03-17: 62.3M</title>
   </circle>
-  <circle cx="320.0" cy="156.62967862277833" r="3" fill="#0969da">
+  <circle cx="270.0" cy="156.62967862277833" r="3" fill="#0969da">
     <title>2026-03-18: 16.4M</title>
   </circle>
-  <circle cx="370.0" cy="129.85927632561726" r="3" fill="#0969da">
+  <circle cx="320.0" cy="129.85927632561726" r="3" fill="#0969da">
     <title>2026-03-19: 146.5M</title>
   </circle>
-  <circle cx="420.0" cy="155.6620102050015" r="3" fill="#0969da">
+  <circle cx="370.0" cy="155.6620102050015" r="3" fill="#0969da">
     <title>2026-03-20: 21.1M</title>
   </circle>
-  <circle cx="470.0" cy="160.0" r="3" fill="#0969da">
+  <circle cx="420.0" cy="160.0" r="3" fill="#0969da">
     <title>2026-03-21: 0</title>
   </circle>
-  <circle cx="520.0" cy="159.10506079721367" r="3" fill="#0969da">
+  <circle cx="470.0" cy="159.10506079721367" r="3" fill="#0969da">
     <title>2026-03-22: 4.3M</title>
   </circle>
-  <circle cx="570.0" cy="35.0" r="3" fill="#0969da">
+  <circle cx="520.0" cy="35.0" r="3" fill="#0969da">
     <title>2026-03-23: 607.4M</title>
   </circle>
-  <circle cx="620.0" cy="141.82015113582955" r="3" fill="#0969da">
+  <circle cx="570.0" cy="141.82015113582955" r="3" fill="#0969da">
     <title>2026-03-24: 88.3M</title>
   </circle>
-  <circle cx="670.0" cy="125.1283390919998" r="3" fill="#0969da">
+  <circle cx="620.0" cy="125.1283390919998" r="3" fill="#0969da">
     <title>2026-03-25: 169.4M</title>
   </circle>
-  <circle cx="720.0" cy="140.63750609684956" r="3" fill="#0969da">
+  <circle cx="670.0" cy="140.63750609684956" r="3" fill="#0969da">
     <title>2026-03-26: 94.1M</title>
+  </circle>
+  <circle cx="720.0" cy="160.0" r="3" fill="#0969da">
+    <title>2026-03-27: 0</title>
   </circle>
   <line x1="560" y1="23" x2="580" y2="23" stroke="#30a14e" stroke-width="2" />
   <text x="584" y="27" font-family="Arial, sans-serif" font-size="10" fill="#30a14e">Cost ($)</text>

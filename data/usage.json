@@ -1588,12 +1588,12 @@
   },
   "2026-03-28": {
     "date": "2026-03-28",
-    "inputTokens": 1562,
-    "outputTokens": 86289,
-    "cacheCreationTokens": 1612985,
-    "cacheReadTokens": 45870790,
-    "totalTokens": 47571626,
-    "totalCost": 34.52484605000003,
+    "inputTokens": 1567,
+    "outputTokens": 86485,
+    "cacheCreationTokens": 1613597,
+    "cacheReadTokens": 47640932,
+    "totalTokens": 49342581,
+    "totalCost": 35.41866705000004,
     "modelsUsed": [
       "claude-opus-4-6",
       "claude-sonnet-4-6"
@@ -1601,11 +1601,11 @@
     "modelBreakdowns": [
       {
         "modelName": "claude-opus-4-6",
-        "inputTokens": 304,
-        "outputTokens": 69715,
-        "cacheCreationTokens": 1509245,
-        "cacheReadTokens": 44725119,
-        "cost": 33.53973575
+        "inputTokens": 309,
+        "outputTokens": 69911,
+        "cacheCreationTokens": 1509857,
+        "cacheReadTokens": 46495261,
+        "cost": 34.43355675000001
       },
       {
         "modelName": "claude-sonnet-4-6",

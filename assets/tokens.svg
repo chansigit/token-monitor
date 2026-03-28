@@ -1003,14 +1003,14 @@
   <rect x="792" y="46" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
     <title>0 tokens on 2026-02-17</title>
   </rect>
-  <rect x="792" y="62" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
+  <rect x="792" y="62" width="13" height="13" rx="2" ry="2" fill="#40c463">
     <title>978.9K tokens on 2026-02-18</title>
   </rect>
   <rect x="792" y="78" width="13" height="13" rx="2" ry="2" fill="#40c463">
-    <title>3.1M tokens on 2026-02-19</title>
+    <title>2.0M tokens on 2026-02-19</title>
   </rect>
-  <rect x="792" y="94" width="13" height="13" rx="2" ry="2" fill="#40c463">
-    <title>3.9M tokens on 2026-02-20</title>
+  <rect x="792" y="94" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
+    <title>309.7K tokens on 2026-02-20</title>
   </rect>
   <rect x="792" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
     <title>0 tokens on 2026-02-21</title>
@@ -1022,7 +1022,7 @@
     <title>1.1M tokens on 2026-02-23</title>
   </rect>
   <rect x="808" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>19.2M tokens on 2026-02-24</title>
+    <title>18.7M tokens on 2026-02-24</title>
   </rect>
   <rect x="808" y="62" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>28.9M tokens on 2026-02-25</title>
@@ -1115,7 +1115,7 @@
     <title>94.1M tokens on 2026-03-26</title>
   </rect>
   <rect x="872" y="94" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>73.2M tokens on 2026-03-27</title>
+    <title>78.7M tokens on 2026-03-27</title>
   </rect>
   <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
@@ -1126,7 +1126,7 @@
   <rect x="240" y="152" width="50" height="12" fill="#216e39" />
   <rect x="40" y="152" width="250" height="12" fill="none" stroke="#d0d7de" stroke-width="0.5" rx="2" />
   <text x="65" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">0</text>
-  <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">978.9K</text>
+  <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">661.3K</text>
   <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">14.9M</text>
   <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">62.3M</text>
   <text x="265" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">607.4M</text>

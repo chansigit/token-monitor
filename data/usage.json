@@ -1548,12 +1548,12 @@
   },
   "2026-03-27": {
     "date": "2026-03-27",
-    "inputTokens": 34746,
-    "outputTokens": 110691,
-    "cacheCreationTokens": 4500249,
-    "cacheReadTokens": 91816274,
-    "totalTokens": 96461960,
-    "totalCost": 73.38533125000005,
+    "inputTokens": 34763,
+    "outputTokens": 112639,
+    "cacheCreationTokens": 4511996,
+    "cacheReadTokens": 94858035,
+    "totalTokens": 99517433,
+    "totalCost": 75.02841550000004,
     "modelsUsed": [
       "claude-opus-4-6",
       "claude-haiku-4-5-20251001",
@@ -1562,11 +1562,11 @@
     "modelBreakdowns": [
       {
         "modelName": "claude-opus-4-6",
-        "inputTokens": 26510,
-        "outputTokens": 91657,
-        "cacheCreationTokens": 4151017,
-        "cacheReadTokens": 87684415,
-        "cost": 72.21003875000005
+        "inputTokens": 26527,
+        "outputTokens": 93605,
+        "cacheCreationTokens": 4162764,
+        "cacheReadTokens": 90726176,
+        "cost": 73.85312300000004
       },
       {
         "modelName": "claude-haiku-4-5-20251001",

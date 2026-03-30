@@ -85,6 +85,46 @@ def migrate_legacy_data():
         print(f"Migrated data/usage.json -> {target.name}")
 
 
+def aggregate_all() -> dict:
+    """Load all machine data files and aggregate by date (sum tokens/cost)."""
+    aggregated = {}
+    for f in sorted(DATA_DIR.glob("usage-*.json")):
+        machine_data = json.loads(f.read_text())
+        for date_str, entry in machine_data.items():
+            if date_str not in aggregated:
+                aggregated[date_str] = {
+                    "date": date_str,
+                    "inputTokens": 0,
+                    "outputTokens": 0,
+                    "cacheCreationTokens": 0,
+                    "cacheReadTokens": 0,
+                    "totalTokens": 0,
+                    "totalCost": 0.0,
+                    "modelsUsed": [],
+                    "modelBreakdowns": [],
+                }
+            agg = aggregated[date_str]
+            for field in ("inputTokens", "outputTokens", "cacheCreationTokens",
+                          "cacheReadTokens", "totalTokens"):
+                agg[field] += entry.get(field, 0)
+            agg["totalCost"] += entry.get("totalCost", 0.0)
+            # Union of models used
+            for model in entry.get("modelsUsed", []):
+                if model not in agg["modelsUsed"]:
+                    agg["modelsUsed"].append(model)
+            # Merge model breakdowns by modelName
+            for bd in entry.get("modelBreakdowns", []):
+                existing = next((b for b in agg["modelBreakdowns"]
+                                 if b["modelName"] == bd["modelName"]), None)
+                if existing:
+                    for field in ("inputTokens", "outputTokens",
+                                  "cacheCreationTokens", "cacheReadTokens", "cost"):
+                        existing[field] = existing.get(field, 0) + bd.get(field, 0)
+                else:
+                    agg["modelBreakdowns"].append(dict(bd))
+    return aggregated
+
+
 def merge_data(existing: dict, new_entries: list[dict]) -> dict:
     """Merge new entries into existing data, keyed by date."""
     for entry in new_entries:

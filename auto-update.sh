@@ -8,12 +8,20 @@ export PATH="/scratch/users/chensj16/venvs/dl2025/.venv/bin:/scratch/users/chens
 cd "$(dirname "$0")"
 
 LOG_FILE="auto-update.log"
+MAX_RETRIES=3
 
 log() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG_FILE"
 }
 
 log "Starting auto-update..."
+
+# Pull latest data from other machines
+if git pull --rebase >> "$LOG_FILE" 2>&1; then
+    log "git pull --rebase succeeded"
+else
+    log "WARNING: git pull --rebase failed, continuing anyway"
+fi
 
 # Fetch and generate
 if python3 monitor.py >> "$LOG_FILE" 2>&1; then
@@ -31,6 +39,16 @@ fi
 
 git add data/ assets/ README.md
 git commit -m "update usage $(date +%Y-%m-%d\ %H:%M)"
-git push
 
-log "Pushed to GitHub successfully"
+# Push with retry
+for i in $(seq 1 $MAX_RETRIES); do
+    if git push 2>> "$LOG_FILE"; then
+        log "Pushed to GitHub successfully"
+        exit 0
+    fi
+    log "Push failed (attempt $i/$MAX_RETRIES), pulling and retrying..."
+    git pull --rebase >> "$LOG_FILE" 2>&1 || true
+done
+
+log "ERROR: Failed to push after $MAX_RETRIES attempts"
+exit 1

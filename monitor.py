@@ -601,31 +601,36 @@ Raw usage data: [`data/usage.json`](data/usage.json)
 
 def main():
     migrate_legacy_data()
+
     print("Fetching usage data from ccusage...")
     new_entries = fetch_usage()
 
     existing = load_existing()
     merged = merge_data(existing, new_entries)
     save_data(merged)
-    print(f"Saved {len(merged)} days of usage data.")
+    print(f"Saved {len(merged)} days to {get_machine_data_file().name}")
+
+    print("Aggregating all machines...")
+    aggregated = aggregate_all()
+    print(f"Aggregated {len(aggregated)} days from {len(list(DATA_DIR.glob('usage-*.json')))} machine(s)")
 
     today = datetime.now().date()
     dates = get_last_365_days(today)
     ASSETS_DIR.mkdir(parents=True, exist_ok=True)
 
     print("Generating 14-day line chart...")
-    recent_svg = generate_line_chart(merged, "Last 14 Days — Cost & Tokens", today)
+    recent_svg = generate_line_chart(aggregated, "Last 14 Days — Cost & Tokens", today)
     (ASSETS_DIR / "recent.svg").write_text(recent_svg)
 
     print("Generating cost matrix...")
-    cost_svg = generate_svg(dates, merged, "totalCost", "Daily Cost", is_cost=True)
+    cost_svg = generate_svg(dates, aggregated, "totalCost", "Daily Cost", is_cost=True)
     (ASSETS_DIR / "cost.svg").write_text(cost_svg)
 
     print("Generating tokens matrix...")
-    tokens_svg = generate_svg(dates, merged, "totalTokens", "Daily Tokens", is_cost=False)
+    tokens_svg = generate_svg(dates, aggregated, "totalTokens", "Daily Tokens", is_cost=False)
     (ASSETS_DIR / "tokens.svg").write_text(tokens_svg)
 
-    update_readme(merged, today)
+    update_readme(aggregated, today)
     print("Done! README.md and SVGs updated.")
 
 

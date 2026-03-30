@@ -26,29 +26,41 @@
 | 2025-11 | $0.00 | 0 | 0 |
 | 2025-12 | $0.00 | 0 | 0 |
 | 2026-01 | $27.55 | 44.4M | 10 |
-| 2026-02 | $40.58 | 76.0M | 15 |
-| 2026-03 | $848.93 | 1.35B | 28 |
-| **Total** | **$917.05** | **1.47B** | **53** |
+| 2026-02 | $18.93 | 24.5M | 13 |
+| 2026-03 | $1,334 | 2.00B | 27 |
+| **Total** | **$1,381** | **2.07B** | **50** |
 
-## Setup
+## Multi-Machine Setup
 
-Requires [ccusage](https://github.com/ryoppippi/ccusage) to be installed.
+Each machine writes its own data file (`data/usage-<name>.json`), then aggregates all machines' data to generate charts.
+
+Machine name is determined by: `MONITOR_NAME` env var > short hostname.
+
+### 1. Clone & Install
 
 ```bash
+git clone <this-repo-url>
+cd token-monitor
 npm install -g ccusage
 ```
 
-## Usage
+### 2. (Optional) Set machine name
 
 ```bash
-# One-shot: fetch data, generate charts, update README
-python monitor.py
-
-# Then commit and push
-git add data/ assets/ README.md && git commit -m "update usage $(date +%Y-%m-%d)" && git push
+export MONITOR_NAME=my-laptop  # defaults to hostname if not set
 ```
 
-## Auto Update (every 10 min)
+### 3a. One-shot run
+
+```bash
+git pull --rebase
+python monitor.py
+git add data/ assets/ README.md
+git commit -m "update usage $(date +%Y-%m-%d)"
+git push
+```
+
+### 3b. Auto-update (every 10 min)
 
 ```bash
 # Start background loop
@@ -61,6 +73,13 @@ tail -f auto-update.log
 kill $(cat .loop.pid)
 ```
 
+The auto-loop handles `git pull --rebase` and push with retry automatically.
+
 ## Data
 
-Raw usage data: [`data/usage.json`](data/usage.json)
+Per-machine usage files: `data/usage-*.json`
+
+## Changelog
+
+- **v2.0** (2026-03-30) — Multi-machine support: per-machine data files, aggregation across machines, auto pull/push with retry
+- **v1.0** (2026-03-28) — Initial release: single-machine usage tracking with GitHub-style contribution matrix

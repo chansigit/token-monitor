@@ -2,6 +2,8 @@
 """Token Monitor - Track Claude Code daily usage with GitHub-style contribution matrix."""
 
 import json
+import os
+import socket
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
@@ -9,9 +11,21 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 BASE_DIR = Path(__file__).parent
-DATA_FILE = BASE_DIR / "data" / "usage.json"
+DATA_DIR = BASE_DIR / "data"
 ASSETS_DIR = BASE_DIR / "assets"
 README_FILE = BASE_DIR / "README.md"
+
+
+def get_machine_name() -> str:
+    """Get machine identifier from env var or hostname."""
+    name = os.environ.get("MONITOR_NAME", "").strip()
+    if not name:
+        name = socket.gethostname().split(".")[0]  # short hostname
+    return name
+
+
+def get_machine_data_file() -> Path:
+    return DATA_DIR / f"usage-{get_machine_name()}.json"
 
 # GitHub-style green colors (5 levels)
 COLORS_GREEN = ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]
@@ -49,16 +63,17 @@ def fetch_usage() -> list[dict]:
 
 
 def load_existing() -> dict:
-    """Load existing usage data keyed by date."""
-    if DATA_FILE.exists():
-        return json.loads(DATA_FILE.read_text())
+    """Load existing usage data for this machine."""
+    f = get_machine_data_file()
+    if f.exists():
+        return json.loads(f.read_text())
     return {}
 
 
 def save_data(data: dict):
-    """Save usage data to JSON file."""
-    DATA_FILE.parent.mkdir(parents=True, exist_ok=True)
-    DATA_FILE.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+    """Save this machine's usage data."""
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    get_machine_data_file().write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
 
 def merge_data(existing: dict, new_entries: list[dict]) -> dict:

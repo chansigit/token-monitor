@@ -76,6 +76,15 @@ def save_data(data: dict):
     get_machine_data_file().write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
 
+def migrate_legacy_data():
+    """Migrate old usage.json to machine-specific file on first run."""
+    legacy = DATA_DIR / "usage.json"
+    target = get_machine_data_file()
+    if legacy.exists() and not target.exists():
+        legacy.rename(target)
+        print(f"Migrated data/usage.json -> {target.name}")
+
+
 def merge_data(existing: dict, new_entries: list[dict]) -> dict:
     """Merge new entries into existing data, keyed by date."""
     for entry in new_entries:
@@ -551,6 +560,7 @@ Raw usage data: [`data/usage.json`](data/usage.json)
 
 
 def main():
+    migrate_legacy_data()
     print("Fetching usage data from ccusage...")
     new_entries = fetch_usage()
 

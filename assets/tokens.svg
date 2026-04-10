@@ -19,15 +19,9 @@
   <text x="776" y="24" font-family="Arial, sans-serif" font-size="10" fill="#57606a">Mar</text>
   <text x="856" y="24" font-family="Arial, sans-serif" font-size="10" fill="#57606a">Apr</text>
   <rect x="40" y="30" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
-  <rect x="40" y="46" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
-    <title>0 tokens on 2025-04-08</title>
-  </rect>
-  <rect x="40" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
-    <title>0 tokens on 2025-04-09</title>
-  </rect>
-  <rect x="40" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
-    <title>0 tokens on 2025-04-10</title>
-  </rect>
+  <rect x="40" y="46" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
+  <rect x="40" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
+  <rect x="40" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="94" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
     <title>0 tokens on 2025-04-11</title>
   </rect>
@@ -943,7 +937,7 @@
   <rect x="744" y="30" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
     <title>223.2K tokens on 2026-02-09</title>
   </rect>
-  <rect x="744" y="46" width="13" height="13" rx="2" ry="2" fill="#40c463">
+  <rect x="744" y="46" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
     <title>3.8M tokens on 2026-02-10</title>
   </rect>
   <rect x="744" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
@@ -1006,32 +1000,32 @@
   <rect x="792" y="30" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>139.3M tokens on 2026-03-02</title>
   </rect>
-  <rect x="792" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
+  <rect x="792" y="46" width="13" height="13" rx="2" ry="2" fill="#40c463">
     <title>40.6M tokens on 2026-03-03</title>
   </rect>
   <rect x="792" y="62" width="13" height="13" rx="2" ry="2" fill="#40c463">
-    <title>39.4M tokens on 2026-03-04</title>
+    <title>37.3M tokens on 2026-03-04</title>
   </rect>
   <rect x="792" y="78" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>169.8M tokens on 2026-03-05</title>
+    <title>148.5M tokens on 2026-03-05</title>
   </rect>
   <rect x="792" y="94" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>165.3M tokens on 2026-03-06</title>
+    <title>154.0M tokens on 2026-03-06</title>
   </rect>
   <rect x="792" y="110" width="13" height="13" rx="2" ry="2" fill="#40c463">
-    <title>31.2M tokens on 2026-03-07</title>
+    <title>22.2M tokens on 2026-03-07</title>
   </rect>
   <rect x="792" y="126" width="13" height="13" rx="2" ry="2" fill="#40c463">
     <title>9.3M tokens on 2026-03-08</title>
   </rect>
-  <rect x="808" y="30" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>218.6M tokens on 2026-03-09</title>
+  <rect x="808" y="30" width="13" height="13" rx="2" ry="2" fill="#30a14e">
+    <title>154.4M tokens on 2026-03-09</title>
   </rect>
-  <rect x="808" y="46" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>224.7M tokens on 2026-03-10</title>
+  <rect x="808" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
+    <title>178.9M tokens on 2026-03-10</title>
   </rect>
   <rect x="808" y="62" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>168.1M tokens on 2026-03-11</title>
+    <title>161.9M tokens on 2026-03-11</title>
   </rect>
   <rect x="808" y="78" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>54.4M tokens on 2026-03-12</title>
@@ -1081,7 +1075,7 @@
   <rect x="840" y="94" width="13" height="13" rx="2" ry="2" fill="#216e39">
     <title>605.8M tokens on 2026-03-27</title>
   </rect>
-  <rect x="840" y="110" width="13" height="13" rx="2" ry="2" fill="#216e39">
+  <rect x="840" y="110" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>183.7M tokens on 2026-03-28</title>
   </rect>
   <rect x="840" y="126" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
@@ -1102,7 +1096,7 @@
   <rect x="856" y="94" width="13" height="13" rx="2" ry="2" fill="#216e39">
     <title>206.1M tokens on 2026-04-03</title>
   </rect>
-  <rect x="856" y="110" width="13" height="13" rx="2" ry="2" fill="#30a14e">
+  <rect x="856" y="110" width="13" height="13" rx="2" ry="2" fill="#40c463">
     <title>42.0M tokens on 2026-04-04</title>
   </rect>
   <rect x="856" y="126" width="13" height="13" rx="2" ry="2" fill="#40c463">
@@ -1112,11 +1106,17 @@
     <title>334.2M tokens on 2026-04-06</title>
   </rect>
   <rect x="872" y="46" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>222.5M tokens on 2026-04-07</title>
+    <title>358.8M tokens on 2026-04-07</title>
   </rect>
-  <rect x="872" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
-  <rect x="872" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
-  <rect x="872" y="94" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
+  <rect x="872" y="62" width="13" height="13" rx="2" ry="2" fill="#216e39">
+    <title>432.4M tokens on 2026-04-08</title>
+  </rect>
+  <rect x="872" y="78" width="13" height="13" rx="2" ry="2" fill="#216e39">
+    <title>793.1M tokens on 2026-04-09</title>
+  </rect>
+  <rect x="872" y="94" width="13" height="13" rx="2" ry="2" fill="#216e39">
+    <title>196.4M tokens on 2026-04-10</title>
+  </rect>
   <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="152" width="50" height="12" fill="#ebedf0" />
@@ -1126,9 +1126,9 @@
   <rect x="240" y="152" width="50" height="12" fill="#216e39" />
   <rect x="40" y="152" width="250" height="12" fill="none" stroke="#d0d7de" stroke-width="0.5" rx="2" />
   <text x="65" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">0</text>
-  <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">3.6M</text>
-  <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">39.4M</text>
-  <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">169.8M</text>
+  <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">3.8M</text>
+  <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">42.0M</text>
+  <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">183.7M</text>
   <text x="265" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">1.82B</text>
   <text x="40" y="148" font-family="Arial, sans-serif" font-size="9" fill="#57606a">Tokens per day</text>
 </svg>

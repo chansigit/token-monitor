@@ -8,15 +8,15 @@
 
 ## Last 14 Days
 
-![Last 14 Days](assets/recent.svg)
+![Last 14 Days](assets/recent.svg?v=43383784)
 
 ## Daily Cost
 
-![Daily Cost](assets/cost.svg)
+![Daily Cost](assets/cost.svg?v=2d711006)
 
 ## Daily Tokens
 
-![Daily Tokens](assets/tokens.svg)
+![Daily Tokens](assets/tokens.svg?v=b00f5aac)
 
 ## Past 6 Months
 
@@ -27,8 +27,8 @@
 | 2026-01 | $110.19 | 177.7M | 10 |
 | 2026-02 | $95.65 | 152.0M | 15 |
 | 2026-03 | $4,549 | 6.73B | 29 |
-| 2026-04 | $10,459 | 14.80B | 24 |
-| **Total** | **$15,214** | **21.86B** | **78** |
+| 2026-04 | $10,467 | 14.82B | 24 |
+| **Total** | **$15,222** | **21.87B** | **78** |
 
 ## Multi-Machine Setup
 

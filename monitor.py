@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Token Monitor - Track Claude Code daily usage with GitHub-style contribution matrix."""
 
+import hashlib
 import json
 import os
 import socket
@@ -537,6 +538,16 @@ def update_readme(data: dict, today=None):
     """Update README.md with current SVG images and monthly summary."""
     monthly_table = generate_monthly_summary(data, today)
 
+    def _hash(name: str) -> str:
+        p = ASSETS_DIR / name
+        if not p.exists():
+            return "0"
+        return hashlib.md5(p.read_bytes()).hexdigest()[:8]
+
+    v_recent = _hash("recent.svg")
+    v_cost = _hash("cost.svg")
+    v_tokens = _hash("tokens.svg")
+
     content = f"""<p align="center">
   <img src="assets/logo.svg" width="120" alt="Token Monitor">
 </p>
@@ -547,15 +558,15 @@ def update_readme(data: dict, today=None):
 
 ## Last 14 Days
 
-![Last 14 Days](assets/recent.svg)
+![Last 14 Days](assets/recent.svg?v={v_recent})
 
 ## Daily Cost
 
-![Daily Cost](assets/cost.svg)
+![Daily Cost](assets/cost.svg?v={v_cost})
 
 ## Daily Tokens
 
-![Daily Tokens](assets/tokens.svg)
+![Daily Tokens](assets/tokens.svg?v={v_tokens})
 
 ## Past 6 Months
 

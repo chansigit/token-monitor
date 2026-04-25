@@ -1115,7 +1115,7 @@
     <title>182.2M tokens on 2026-04-23</title>
   </rect>
   <rect x="872" y="94" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>155.3M tokens on 2026-04-24</title>
+    <title>338.3M tokens on 2026-04-24</title>
   </rect>
   <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
@@ -1128,7 +1128,7 @@
   <text x="65" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">0</text>
   <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">7.0M</text>
   <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">85.7M</text>
-  <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">335.1M</text>
+  <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">338.3M</text>
   <text x="265" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">2.38B</text>
   <text x="40" y="148" font-family="Arial, sans-serif" font-size="9" fill="#57606a">Tokens per day</text>
 </svg>

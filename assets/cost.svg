@@ -22,9 +22,7 @@
   <rect x="40" y="46" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
-  <rect x="40" y="94" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
-    <title>$0.00 on 2025-04-25</title>
-  </rect>
+  <rect x="40" y="94" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
     <title>$0.00 on 2025-04-26</title>
   </rect>
@@ -1022,13 +1020,13 @@
     <title>$1,009 on 2026-03-23</title>
   </rect>
   <rect x="808" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>$243.87 on 2026-03-24</title>
+    <title>$243.48 on 2026-03-24</title>
   </rect>
   <rect x="808" y="62" width="13" height="13" rx="2" ry="2" fill="#216e39">
     <title>$480.01 on 2026-03-25</title>
   </rect>
   <rect x="808" y="78" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>$308.65 on 2026-03-26</title>
+    <title>$307.50 on 2026-03-26</title>
   </rect>
   <rect x="808" y="94" width="13" height="13" rx="2" ry="2" fill="#216e39">
     <title>$579.87 on 2026-03-27</title>
@@ -1039,7 +1037,7 @@
   <rect x="808" y="126" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
     <title>$0.88 on 2026-03-29</title>
   </rect>
-  <rect x="824" y="30" width="13" height="13" rx="2" ry="2" fill="#216e39">
+  <rect x="824" y="30" width="13" height="13" rx="2" ry="2" fill="#30a14e">
     <title>$288.35 on 2026-03-30</title>
   </rect>
   <rect x="824" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
@@ -1115,9 +1113,11 @@
     <title>$142.07 on 2026-04-23</title>
   </rect>
   <rect x="872" y="94" width="13" height="13" rx="2" ry="2" fill="#30a14e">
-    <title>$230.39 on 2026-04-24</title>
+    <title>$276.06 on 2026-04-24</title>
   </rect>
-  <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
+  <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#216e39">
+    <title>$424.67 on 2026-04-25</title>
+  </rect>
   <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="152" width="50" height="12" fill="#ebedf0" />
   <rect x="90" y="152" width="50" height="12" fill="#9be9a8" />
@@ -1128,7 +1128,7 @@
   <text x="65" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">0</text>
   <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$4.55</text>
   <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$58.10</text>
-  <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$243.87</text>
+  <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$288.35</text>
   <text x="265" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$1,512</text>
   <text x="40" y="148" font-family="Arial, sans-serif" font-size="9" fill="#57606a">Cost per day</text>
 </svg>

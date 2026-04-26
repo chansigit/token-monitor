@@ -23,9 +23,7 @@
   <rect x="40" y="62" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="78" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="94" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
-  <rect x="40" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
-    <title>$0.00 on 2025-04-26</title>
-  </rect>
+  <rect x="40" y="110" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
   <rect x="40" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0">
     <title>$0.00 on 2025-04-27</title>
   </rect>
@@ -1116,9 +1114,11 @@
     <title>$276.06 on 2026-04-24</title>
   </rect>
   <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#216e39">
-    <title>$459.18 on 2026-04-25</title>
+    <title>$461.84 on 2026-04-25</title>
   </rect>
-  <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#ebedf0" />
+  <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
+    <title>$4.45 on 2026-04-26</title>
+  </rect>
   <rect x="40" y="152" width="50" height="12" fill="#ebedf0" />
   <rect x="90" y="152" width="50" height="12" fill="#9be9a8" />
   <rect x="140" y="152" width="50" height="12" fill="#40c463" />

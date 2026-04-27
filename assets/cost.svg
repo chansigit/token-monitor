@@ -828,7 +828,7 @@
   <rect x="664" y="30" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
     <title>$2.80 on 2026-01-19</title>
   </rect>
-  <rect x="664" y="46" width="13" height="13" rx="2" ry="2" fill="#30a14e">
+  <rect x="664" y="46" width="13" height="13" rx="2" ry="2" fill="#40c463">
     <title>$62.52 on 2026-01-20</title>
   </rect>
   <rect x="664" y="62" width="13" height="13" rx="2" ry="2" fill="#9be9a8">
@@ -1116,8 +1116,8 @@
   <rect x="872" y="110" width="13" height="13" rx="2" ry="2" fill="#216e39">
     <title>$463.12 on 2026-04-25</title>
   </rect>
-  <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#40c463">
-    <title>$4.74 on 2026-04-26</title>
+  <rect x="872" y="126" width="13" height="13" rx="2" ry="2" fill="#30a14e">
+    <title>$84.82 on 2026-04-26</title>
   </rect>
   <rect x="40" y="152" width="50" height="12" fill="#ebedf0" />
   <rect x="90" y="152" width="50" height="12" fill="#9be9a8" />
@@ -1127,7 +1127,7 @@
   <rect x="40" y="152" width="250" height="12" fill="none" stroke="#d0d7de" stroke-width="0.5" rx="2" />
   <text x="65" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">0</text>
   <text x="115" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$4.55</text>
-  <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$58.10</text>
+  <text x="165" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$62.52</text>
   <text x="215" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$288.35</text>
   <text x="265" y="176" font-family="Arial, sans-serif" font-size="9" fill="#57606a" text-anchor="middle">$1,512</text>
   <text x="40" y="148" font-family="Arial, sans-serif" font-size="9" fill="#57606a">Cost per day</text>
